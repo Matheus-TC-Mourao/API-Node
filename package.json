@@ -12,7 +12,11 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^22.9.1",
+    "prisma": "^5.22.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0"
   }
 }
