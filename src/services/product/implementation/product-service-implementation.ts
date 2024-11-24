@@ -1,6 +1,8 @@
+import { Product } from "../../../entities/product";
 import { ProductRepository } from "../../../repositories/product/product-repository";
 import {
   BuyOutputDto,
+  CreateOutputDto,
   ListOutputDto,
   ProductService,
   SellOutputDto,
@@ -11,6 +13,19 @@ export class ProductServiceImplementation implements ProductService {
 
   public static build(repository: ProductRepository) {
     return new ProductServiceImplementation(repository);
+  }
+
+  public async create(name: string, price: number) {
+    const aProduct = Product.create(name, price);
+
+    await this.repository.save(aProduct);
+
+    const output: CreateOutputDto = {
+      id: aProduct.id,
+      balance: aProduct.quantity,
+    };
+
+    return output;
   }
 
   public async sell(id: string, amount: number): Promise<SellOutputDto> {
