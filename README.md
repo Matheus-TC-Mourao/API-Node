@@ -27,20 +27,14 @@ Este é um projeto backend para gerenciamento de estoque de produtos, desenvolvi
 
 ```bash
 src/
-├── api/              # Rotas e controladores da aplicação
-│   ├── routes/       # Definição de endpoints
-│   └── controllers/  # Controladores que interagem com os serviços
-├── entities/
-├── repositories/     # Operações no banco de dados via Prisma
-├   ├── product/
-│       ├── prisma/
-│       └── product-repository.ts
-├── services/         # Lógica de negócios e validações
-├   ├── product/
-│       ├──implementation/
-│       └── product-service.ts
-├── utils/            # Funções auxiliares e utilitárias
-└── main.ts            # Configuração do servidor Express
+├── api/                  # Rotas e controladores da aplicação
+│   ├── express/          # Definição de endpoints
+│       ├── controllers/  # Controladores que interagem com os serviços
+├── entities/             # Entidades do projeto
+├── repositories/         # Operações no banco de dados via Prisma
+├── services/             # Lógica de negócios e validações
+├── utils/                # Funções auxiliares e utilitárias
+└── main.ts               # Configuração do servidor Express
 ```
 
 ---
@@ -66,8 +60,8 @@ src/
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/usuario/estoque-api.git
-   cd estoque-api
+   git clone https://github.com/Matheus-TC-Mourao/API-Node.git
+   cd API-Node
    ```
 
 2. **Instale as dependências:**
@@ -76,22 +70,13 @@ src/
    npm install
    ```
 
-3. **Configure o banco de dados SQLite:**
-
-   - Altere o arquivo `prisma/schema.prisma` caso necessário.
-   - Execute a migração inicial:
-
-     ```bash
-     npx prisma migrate dev
-     ```
-
-4. **Inicie o servidor:**
+3. **Inicie o servidor:**
 
    ```bash
-   npm start
+   npm run dev
    ```
 
-5. A API estará disponível em `http://localhost:8800`.
+4. A API estará disponível em `http://localhost:8800`.
 
 ---
 
@@ -102,23 +87,31 @@ src/
 - **GET /products**
   Lista todos os produtos do estoque.
 
-- **POST /products/buy**
-  Adiciona produtos ao estoque.
+- **POST /products/create**
+  Adiciona produtos.
   **Body:**
   ```json
   {
-    "productId": 1,
-    "quantity": 10
+    "name": "Produto test",
+    "price": 11.11
   }
   ```
 
-- **POST /products/sell**
-  Reduz a quantidade de produtos no estoque.
+- **POST /products/{id}/buy**
+  Compra produtos para o estoque.
   **Body:**
   ```json
   {
-    "productId": 1,
-    "quantity": 5
+    "amount": 10
+  }
+  ```
+
+- **POST /products/{id}/sell**
+  Vende produtos do estoque.
+  **Body:**
+  ```json
+  {
+    "amount": 20
   }
   ```
 
@@ -128,7 +121,7 @@ src/
 
 ### Serviços (services)
 - **Gerenciamento de Estoque:**
-  Valida a disponibilidade de produtos para venda e previne estoques negativos.
+  Valida a disponibilidade de produtos para venda e lança erros para estoques negativos.
 
 ### Regras de Negócio
 1. Produtos não podem ter estoque negativo.
@@ -139,9 +132,9 @@ src/
 
 ## 📖 Exemplo de Fluxo
 
-1. Um cliente adiciona produtos ao estoque via endpoint **/products/buy**.
+1. Um cliente adiciona produtos ao estoque via endpoint **/products/{id}/buy**.
 2. O estoque é atualizado no banco de dados através do repositório Prisma.
-3. Um cliente realiza uma venda pelo endpoint **/products/sell**, reduzindo a quantidade disponível.
+3. Um cliente realiza uma venda pelo endpoint **/products/{id}/sell**, reduzindo a quantidade disponível.
 
 ---
 

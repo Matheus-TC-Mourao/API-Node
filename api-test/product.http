@@ -1,0 +1,32 @@
+###
+GET http://localhost:8800/products
+
+###
+POST http://localhost:8800/products/create
+Content-Type: application/json
+{
+"name" : "Produto 1",
+"price": 11.0
+}
+
+###
+POST http://localhost:8800/products/create
+Content-Type: application/json
+{
+"name" : "Produto 2",
+"price": 22.0
+}
+
+###
+POST http://localhost:8800/products/{id}/buy
+Content-Type: application/json
+{
+"amount": 100
+}
+
+###
+POST http://localhost:8800/products/{id}/sell
+Content-Type: application/json
+{
+"amount": 25
+}

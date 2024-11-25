@@ -38,4 +38,32 @@ export class ProductController {
 
     response.status(200).json(data).send();
   }
+
+  public async buy(request: Request, response: Response) {
+    const {id} = request.params
+    const { amount} = request.body
+
+    const aRepository = ProductRepositoryPrisma.build(prisma);
+    const aService = ProductServiceImplementation.build(aRepository);
+
+    const output = await aService.buy(id,amount);
+
+    const data = { id:output.id, balance:output.balance };
+
+    response.status(200).json(data).send();
+  }
+
+  public async sell(request: Request, response: Response) {
+    const {id} = request.params
+    const {amount} = request.body
+
+    const aRepository = ProductRepositoryPrisma.build(prisma);
+    const aService = ProductServiceImplementation.build(aRepository);
+
+    const output = await aService.sell(id,amount);
+
+    const data = { id:output.id, balance:output.balance };
+
+    response.status(200).json(data).send();
+  }
 }
