@@ -85,10 +85,10 @@ src/
 ### **Produtos**
 
 - **GET /products**
-  Lista todos os produtos do estoque.
+  - Lista todos os produtos do estoque.
 
 - **POST /products/create**
-  Adiciona produtos.
+  - Adiciona produtos.</br>
   **Body:**
   ```json
   {
@@ -98,7 +98,7 @@ src/
   ```
 
 - **POST /products/{id}/buy**
-  Compra produtos para o estoque.
+  - Compra produtos para o estoque.</br>
   **Body:**
   ```json
   {
@@ -107,7 +107,7 @@ src/
   ```
 
 - **POST /products/{id}/sell**
-  Vende produtos do estoque.
+  - Vende produtos do estoque.</br>
   **Body:**
   ```json
   {
